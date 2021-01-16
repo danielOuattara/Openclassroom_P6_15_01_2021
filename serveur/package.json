@@ -1,0 +1,19 @@
+{
+  "name": "serveur",
+  "version": "1.0.0",
+  "description": "Contient le serveur projet_6 OC Se pekocko",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielOuattara/Openclassroom_P6_15_01_2021.git"
+  },
+  "author": "Daniel.B OUATTARA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielOuattara/Openclassroom_P6_15_01_2021/issues"
+  },
+  "homepage": "https://github.com/danielOuattara/Openclassroom_P6_15_01_2021#readme"
+}
