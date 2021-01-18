@@ -9,6 +9,34 @@ app.use((req, res, next) => {
     next();
 });
 
+
+app.post('/api/auth/signup', (req, res, next) => {   // recupère les inscriptions
+    console.log(req.body);
+    res.status(201).json({
+        message: 'inscription réussie'
+    });
+});
+app.post('/api/auth/login', (req, res, next) => {   // récupère les connexions
+    console.log(req.body);
+    res.status(201).json({
+        message: 'connexion reussie'
+    });
+});
+app.post('/api/sauces/:id', (req, res, next) => {   // recupère les sauces
+    console.log(req.body);
+    res.status(201).json({
+        message: 'sauce captée'
+    });
+});
+app.post('/api/sauces/:id/like', (req, res, next) => {   // écouter les requêtes formulaires
+    console.log(req.body);
+    res.status(201).json({
+        message: 'sauce aimée (ou pas ?..ici ?)'
+    });
+});
+
+
+
 app.use('/api/stuff', (req, res, next) => {
 
     const stuff = [
