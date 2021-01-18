@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+
 app.post('/api/auth/signup', (req, res, next) => {   // recupère les inscriptions
 
     if (req.body._id) delete req.body._id;
@@ -37,6 +38,7 @@ app.post('/api/auth/signup', (req, res, next) => {   // recupère les inscriptio
         })
 });
 
+
 app.post('/api/auth/login', (req, res, next) => {   // récupère les connexions
     const schemaUtilisateur = new SchemaUtilisateur({ ... req.body});
     schemaUtilisateur.save()
@@ -48,6 +50,7 @@ app.post('/api/auth/login', (req, res, next) => {   // récupère les connexions
 
 });
 
+
 app.post('/api/sauces', (req, res, next) => {   // recupère les sauces
     const schemaSauce = new SchemaSauce({ ... req.body});
     schemaSauce.save()
@@ -57,6 +60,7 @@ app.post('/api/sauces', (req, res, next) => {   // recupère les sauces
             res.status(400).json({error});
         })
 });
+
 
 app.post('/api/sauces/:id/like', (req, res, next) => {   // écouter les requêtes formulaires
     const schemaSauce = new SchemaSauce({ ... req.body});
@@ -79,6 +83,7 @@ app.put('/api/sauces/:id', (req, res, next) => {   // actualise la sauce spécif
         })
 });
 
+
 app.delete('/api/sauces/:id', (req, res, next) => {   // supprime la sauce spécifique avec son ID au client
     const schemaSauce = new SchemaSauce({ ... req.body});
     schemaSauce.save()
@@ -89,12 +94,14 @@ app.delete('/api/sauces/:id', (req, res, next) => {   // supprime la sauce spéc
         })
 });
 
+
 app.get('/api/sauces', (req, res, next) => {   // renvoie tableau de toutes les sauces au client de la BD
     SchemaSauce.find()
         .then( schemaSauce =>  {res.status(200).json(schemaSauce, console.log('Tableau De Sauce Envoyé'))})
         .catch( error => res.status(400).json({error}));
 
 });
+
 
 app.get('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client; 
     SchemaSauce.find()
@@ -103,30 +110,6 @@ app.get('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifiq
 
 });
 
-app.use('/api/stuff', (req, res, next) => {
-
-    const stuff = [
-        {
-          _id: 'oeihfzeoi',
-          title: 'Mon premier objet',
-          description: 'Les infos de mon premier objet',
-          imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-          price: 4900,
-          userId: 'qsomihvqios',
-        },
-        {
-          _id: 'oeihfzeomoihi',
-          title: 'Mon deuxième objet',
-          description: 'Les infos de mon deuxième objet',
-          imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-          price: 2900,
-          userId: 'qsomihvqios',
-        },
-      ];
-
-    res.status(200).json(stuff);
-
-});
 
 module.exports = app;  //  rend 'app' accessible depuis les autres fichiers du projet
 
