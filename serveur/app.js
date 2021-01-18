@@ -8,7 +8,7 @@ const mongoose = require('mogoose');
 const SchemaUtilisateurs = require('./schemaDeDonnees/SchemaUtilisateur.js')
 const SchemaSauce = require('./schemaDeDonnees/SchemaSauce.js')
 
-mongoose.connect('mongodb+srv://danielboua:gqhQrhjN4YmA3mjSgqhQrhjN4YmA3mjS@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDuAUXJ9MvE@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
