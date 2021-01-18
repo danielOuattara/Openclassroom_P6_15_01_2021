@@ -1,6 +1,17 @@
-const express = require ('express');  // importe 'express'
+const express  = require( 'express');  // importe 'express'
+const boyParse = require( 'body-parser');
 
 const app = express(); //  cree une application express
+
+const mongoose = require('mogoose');
+
+
+mongoose.connect('mongodb+srv://danielboua:gqhQrhjN4YmA3mjSgqhQrhjN4YmA3mjS@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
