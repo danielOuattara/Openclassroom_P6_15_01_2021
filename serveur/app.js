@@ -68,25 +68,6 @@ app.post('/api/sauces/:id/like', (req, res, next) => {   // écouter les requêt
         })
 });
 
-app.get('/api/sauces', (req, res, next) => {   // renvoie tableau de toutes les sauces au client de la BD
-    const schemaSauce = new SchemaSauce({ ... req.body});
-    schemaSauce.save()
-        .then( () => res.status(201).json({ message: ' Affichage Tableau De Sauce Réussie'}))
-        .catch( error => {
-            console.log(error);
-            res.status(400).json({error});
-        })
-});
-
-app.get('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client
-    const schemaSauce = new SchemaSauce({ ... req.body});
-    schemaSauce.save()
-        .then( () => res.status(201).json({ message: ' Renvoi Sauce Spécifique Réussie'}))
-        .catch( error => {
-            console.log(error);
-            res.status(400).json({error});
-        })
-});
 
 app.put('/api/sauces/:id', (req, res, next) => {   // actualise la sauce spécifique avec son ID au client
     const schemaSauce = new SchemaSauce({ ... req.body});
@@ -108,7 +89,19 @@ app.delete('/api/sauces/:id', (req, res, next) => {   // supprime la sauce spéc
         })
 });
 
+app.get('/api/sauces', (req, res, next) => {   // renvoie tableau de toutes les sauces au client de la BD
+    SchemaSauce.find()
+        .then( schemaSauce =>  {res.status(200).json(schemaSauce, console.log('Tableau De Sauce Envoyé'))})
+        .catch( error => res.status(400).json({error}));
 
+});
+
+app.get('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client; 
+    SchemaSauce.find()
+    .then( schemaSauce =>  {res.status(200).json(schemaSauce, console.log('Renvoi De Sauce Spécifique Réussie'))})
+    .catch( error => res.status(400).json({error}));
+
+});
 
 app.use('/api/stuff', (req, res, next) => {
 
