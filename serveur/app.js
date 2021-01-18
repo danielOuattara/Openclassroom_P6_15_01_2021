@@ -16,22 +16,53 @@ app.post('/api/auth/signup', (req, res, next) => {   // recupère les inscriptio
         message: 'inscription réussie'
     });
 });
+
 app.post('/api/auth/login', (req, res, next) => {   // récupère les connexions
     console.log(req.body);
     res.status(201).json({
         message: 'connexion reussie'
     });
 });
-app.post('/api/sauces/:id', (req, res, next) => {   // recupère les sauces
+
+app.post('/api/sauces', (req, res, next) => {   // recupère les sauces
     console.log(req.body);
     res.status(201).json({
         message: 'sauce captée'
     });
 });
+
 app.post('/api/sauces/:id/like', (req, res, next) => {   // écouter les requêtes formulaires
     console.log(req.body);
     res.status(201).json({
         message: 'sauce aimée (ou pas ?..ici ?)'
+    });
+});
+
+app.get('/api/sauces', (req, res, next) => {   // renvoie tableau de toutes les sauces au client de la BD
+    console.log(req.body);
+    res.status(201).json({
+        message: 'voici les sauces'
+    });
+});
+
+app.get('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client
+    console.log(req.body);
+    res.status(201).json({
+        message: 'voici les sauces'
+    });
+});
+
+app.put('/api/sauces/:id', (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client
+    console.log(req.body);
+    res.status(201).json({
+        message: 'voici les sauces'
+    });
+});
+
+app.delete('/api/sauces/:id', (req, res, next) => {   // supprime la sauce spécifique avec son ID au client
+    console.log(req.body);
+    res.status(201).json({
+        message: 'voici les sauces'
     });
 });
 
