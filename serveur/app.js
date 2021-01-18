@@ -5,6 +5,9 @@ const app = express(); //  cree une application express
 
 const mongoose = require('mogoose');
 
+const SchemaUtilisateurs = require('./schemaDeDonnees/SchemaUtilisateur.js')
+const SchemaSauce = require('./schemaDeDonnees/SchemaSauce.js')
+
 mongoose.connect('mongodb+srv://danielboua:gqhQrhjN4YmA3mjSgqhQrhjN4YmA3mjS@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
