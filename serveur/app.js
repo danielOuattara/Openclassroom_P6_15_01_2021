@@ -23,6 +23,8 @@ app.use((req, res, next) => {
 });
 
 
+app.use(bodyParser.json());
+
 app.post('/api/auth/signup', (req, res, next) => {   // recupère les inscriptions
     console.log(req.body);
     res.status(201).json({
