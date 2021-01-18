@@ -14,4 +14,4 @@ const  schemaSauce = mongoose.Schema({
     usersLiked:    {type: String, required: true},
 })
 
-module.exports = mongoose.model('schemaSauces', schemaSauce);
+module.exports = mongoose.model('SchemaSauce', schemaSauce);
