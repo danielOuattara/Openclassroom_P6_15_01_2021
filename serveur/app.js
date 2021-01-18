@@ -5,6 +5,7 @@ const app = express(); //  cree une application express
 
 const mongoose = require('mogoose');
 
+// const SchemaUtilisateur = require('./../')
 
 mongoose.connect('mongodb+srv://danielboua:gqhQrhjN4YmA3mjSgqhQrhjN4YmA3mjS@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
