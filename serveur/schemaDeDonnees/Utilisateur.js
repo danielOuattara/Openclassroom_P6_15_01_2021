@@ -7,4 +7,4 @@ const  schemaUtilisateur = mongoose.Schema(
     password: {type: String, required: true} 
  });
 
-module.exports = mongoose.model('SchemaUtilisateur', schemaUtilisateur);
+module.exports = mongoose.model('Utilisateur', schemaUtilisateur);
