@@ -4,7 +4,7 @@ const Sauce   = require('./../schemaDeDonnees/Sauce.js');
 
 
 
-router.post('/api/sauces', (req, res, next) => {   // recupère les sauces
+router.post('/', (req, res, next) => {   // recupère les sauces
     const sauce = new Sauce({ ... req.body});
     sauce.save()
         .then(() => res.status(201).json({ message: ' Réussie'}))

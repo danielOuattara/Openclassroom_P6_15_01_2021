@@ -10,7 +10,6 @@ const routesSauce       = require('./routes/sauces.js')
 const routesUtilisateur = require('./routes/utilisateurs.js')
 
 
-
 mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDuAUXJ9MvE@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
