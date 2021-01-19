@@ -1,4 +1,4 @@
-const Sauce   = require('../dataModel/Sauce.js.js.js');
+const Sauce   = require('../dataModel/SauceModel.js');
 
 
 

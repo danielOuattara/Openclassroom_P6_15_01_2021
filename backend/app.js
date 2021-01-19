@@ -3,11 +3,10 @@ const bodyParser  = require( 'body-parser');
 const app         = express(); //  cree une application express
 const mongoose    = require('mongoose');
 const Utilisateur = require('./dataModel/UserModel.js')
-const Sauce       = require('./dataModel/Sauce.js.js.js')
+const Sauce       = require('./dataModel/SauceModel.js')
 
-
-const routesSauce       = require('./routes/sauces.js')
-const routesUtilisateur = require('./routes/utilisateurs.js')
+const sauceRoutes = require('./routes/saucesRoutes.js')
+const usersRoutes = require('./routes/usersRoutes.js')
 
 
 mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDuAUXJ9MvE@cluster0.vndw3.mongodb.net/test?retryWrites=true&w=majority',
@@ -28,8 +27,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 
-app.use('api/sauces',routesSauce )
-app.use('api/signup', routesUtilisateur )
+app.use('api/sauces', sauceRoutes )
+app.use('api/auth', usersRoutes )
 
 module.exports = app;  //  rend 'app' accessible depuis les autres fichiers du projet
 
