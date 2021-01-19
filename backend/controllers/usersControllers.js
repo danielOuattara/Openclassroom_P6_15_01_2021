@@ -1,22 +1,16 @@
-const express     = require('express');
-const router      = express.Router();
-const Utilisateur = require('./../schemaDeDonnees/Utilisateur.js');
+const Utilisateur = require('../dataModel/Utilisateur.js');
 
 
-
-
-router.post('/signup', (req, res, next) => {   // recupère les inscriptions  :: TODO: INCOMPLET  <<------ !##################################
+exports.singUpUser = (req, res, next) => {   // recupère les inscriptions  :: TODO: INCOMPLET  <<------ !##################################
 
     if (req.body._id) delete req.body._id;
     const utilisateur = new Utilisateur({ ... req.body});
     utilisateur.save()
         .then( () => res.status(201).json({ message: 'Inscription Réussie. Bienvenue Chez Se Pokocko !'}))
         .catch( error => res.status(400).json({error}));
-});
+}
 
-
-
-router.post('/login', (req, res, next) => {   // récupère les connexions :: TODO: INCOMPLET  <<------ !##################################
+exports.loginUser = (req, res, next) => {   // récupère les connexions :: TODO: INCOMPLET  <<------ !##################################
     const utilisateur = new Utilisateur({ ... req.body});
     utilisateur.save()
         .then(() => res.status(201).json({ message: 'Connexion Réussie, Content De Vous Revoir'}))
@@ -25,6 +19,4 @@ router.post('/login', (req, res, next) => {   // récupère les connexions :: TO
             res.status(400).json({error});
         })
 
-});
-
-module.exports = router;
+}
