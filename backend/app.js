@@ -2,7 +2,7 @@ const express     = require( 'express');  // importe 'express'
 const bodyParser  = require( 'body-parser');
 const app         = express(); //  cree une application express
 const mongoose    = require('mongoose');
-const Utilisateur = require('./dataModel/Utilisateur.js')
+const Utilisateur = require('./dataModel/UserModel.js')
 const Sauce       = require('./dataModel/Sauce.js.js.js')
 
 

@@ -1,4 +1,4 @@
-const Utilisateur = require('../dataModel/Utilisateur.js');
+const Utilisateur = require('../dataModel/UserModel.js');
 
 
 exports.singUpUser = (req, res, next) => {   // recupère les inscriptions  :: TODO: INCOMPLET  <<------ !##################################
