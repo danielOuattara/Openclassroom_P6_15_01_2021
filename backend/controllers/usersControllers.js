@@ -1,13 +1,23 @@
+const bcrypt = require('bcrypt');
 const User = require('../dataModel/UserModel.js');
 
 
 exports.singup = (req, res, next) => {   // recupère les inscriptions  :: TODO: INCOMPLET  <<------ !##################################
 
-    if (req.body._id) delete req.body._id;
-    const utilisateur = new User({ ... req.body});
-    utilisateur.save()
-        .then( () => res.status(201).json({ message: 'Inscription Réussie. Bienvenue Chez Se Pokocko !'}))
-        .catch( error => res.status(400).json({error}));
+    bcrypt.hash( req.body.password, 10)
+        .then( hash => {
+            const user = new User( 
+                {
+                    email: req.body.email,
+                    password: hash
+                }
+            );
+
+            user.save()
+                .then( () => res.status(201).json( {message: 'User Created !'}))
+                .catch( error => res.status(400).json( {error}))
+        })
+        .catch(error => res.status(500).json( {error}))
 }
 
 exports.login = (req, res, next) => {   // récupère les connexions :: TODO: INCOMPLET  <<------ !##################################
