@@ -12,7 +12,6 @@ exports.singup = (req, res, next) => {   // recupère les inscriptions  :: TODO:
                     password: hash
                 }
             );
-
             user.save()
                 .then( () => res.status(201).json( {message: 'User Created !'}))
                 .catch( error => res.status(400).json( {error}))
@@ -20,13 +19,29 @@ exports.singup = (req, res, next) => {   // recupère les inscriptions  :: TODO:
         .catch(error => res.status(500).json( {error}))
 }
 
-exports.login = (req, res, next) => {   // récupère les connexions :: TODO: INCOMPLET  <<------ !##################################
-    const utilisateur = new User({ ... req.body});
-    utilisateur.save()
-        .then(() => res.status(201).json({ message: 'Connexion Réussie, Content De Vous Revoir'}))
-        .catch( error => {
-            console.log(error);
-            res.status(400).json({error});
+
+
+exports.login = (req, res, next) => {   
+    User.findOne( {email: req.body.email})
+        .then( user => {
+            if(!user) {
+                return res.status(401).json( {error: 'User Unknown'})
+            }
+            bcrypt.compare( req.body.password, user.password)
+
+                .then( valid => {
+                    if( !valid) {
+                        return res.status(401).json( {error: ' Connexion Not Granted !'})
+                    }
+                    res.status(200).json( 
+                        {
+                            userID: user._id,
+                            token: 'TOKEN'
+                        }
+                    )
+                })
+                .catch( error => res.status(500).json( {error}))
         })
+        .catch( error => res.status(500).json( {error}))
 
 }

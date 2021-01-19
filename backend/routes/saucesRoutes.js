@@ -12,8 +12,8 @@ router.delete('/:id', saucesController.deleteOneSauce);
 
 router.put('/:id', saucesController.updateSauce);
 
-router.get('/:id', sauces.getOneSauce);
+router.get('/:id', saucesController.getOneSauce);
 
-router.get('/', sauces.getAllSauce );
+router.get('/', saucesController.getAllSauce );
 
 module.exports = router;
