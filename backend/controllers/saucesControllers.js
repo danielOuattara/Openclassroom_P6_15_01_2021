@@ -3,15 +3,18 @@ const Sauce   = require('../dataStructure/SauceModel.js');
 
 
 exports.addSauce = (req, res, next) => {   // recupère les sauces
-    const sauce = new Sauce({ ... req.body});
+    const sauceObject = JSON.parse( req.body.sauce);
+    delete sauceObject._id;
+    const sauce = new Sauce(
+      {
+        ...sauceObject,
+        imageUrl: `${req.protocol}:// ${req.get('host')}/images/${req.file.filename}`
+      }
+    );
     sauce.save()
-        .then(() => res.status(201).json({ message: ' Réussie'}))
-        .catch( error => {
-            console.log(error);
-            res.status(400).json({error});
-        })
-}
-
+        .then(() => res.status(201).json({message: 'Objet Bien Enregistré !'}))
+        .catch( error => res.status(400).json({error}));
+} 
 
 
 exports.userLikeSauce = (req, res, next) => {   // écouter les requêtes formulaires
