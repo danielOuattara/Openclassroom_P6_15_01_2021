@@ -1,5 +1,5 @@
 const Sauce   = require('../dataStructure/SauceModel.js');
-
+const fs = require('fs');
 
 
 exports.addSauce = (req, res, next) => {   // recupère les sauces
@@ -28,13 +28,18 @@ exports.userLikeSauce = (req, res, next) => {   // écouter les requêtes formul
 }
 
 
-
-exports.deleteOneSauce = (req, res, next) => {   // supprime la sauce spécifique avec son ID au client
-    Sauce.deleteOne( {_id: req.params.id})
-        .then(() => res.status(201).json({ message: ' Suppression Réussie pour : ' + req.params.id}))
-        .catch( error => res.status(400).json({error}));
+exports.deleteOneSauce = (req, res, next) => { 
+    Thing.findOne({_id: req.params.id })
+      .then( thing => {
+        const filename = thing.imageUrl.split('/image/')[1];
+        fs.unlink( `images/${filename}`, () => {
+            Thing.deleteOne({_id: req.params.id})
+                .then( () => res.status(200).json( {message: 'Suppression Réussie !'}))
+                .catch( error => res.status(400).json({error}));
+            })
+      })
+      .catch( error => res.status(500).json({error}))
 }
-
 
 
 exports.updateSauce =  (req, res, next) => {   // actualise la sauce spécifique avec son ID 
@@ -44,7 +49,7 @@ exports.updateSauce =  (req, res, next) => {   // actualise la sauce spécifique
       ...JSON.parse(req.body.thing),  //si update d'image dans cet update
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
     }
-    :
+    :  // si non
     {
       ...req.body // si pas d'update image dans cette update
     }
