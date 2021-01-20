@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../dataModel/UserModel.js');
+const User = require('../dataStructure/UserModel.js');
 
 
 exports.singup = (req, res, next) => {   // recupère les inscriptions  :: TODO: INCOMPLET  <<------ !##################################
@@ -36,7 +36,11 @@ exports.login = (req, res, next) => {
                     res.status(200).json( 
                         {
                             userID: user._id,
-                            token: 'TOKEN'
+                            token:  jsonwebtoken.sign(
+                                { userId: user._id },
+                                'RANDOM_TOKEN_SECRET',
+                                { expiresIn: '24h' }
+                            )
                         }
                     )
                 })
