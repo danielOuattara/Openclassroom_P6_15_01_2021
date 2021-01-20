@@ -38,7 +38,17 @@ exports.deleteOneSauce = (req, res, next) => {   // supprime la sauce spécifiqu
 
 
 exports.updateSauce =  (req, res, next) => {   // actualise la sauce spécifique avec son ID 
-    Sauce.updateOne( {_id: req.params.id}, {...req.boby, _id:req.params.id})
+
+    const sauceObject = req.file ?
+    {
+      ...JSON.parse(req.body.thing),  //si update d'image dans cet update
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
+    }
+    :
+    {
+      ...req.body // si pas d'update image dans cette update
+    }
+    Sauce.updateOne( {_id: req.params.id}, {...sauceObject, _id:req.params.id})
         .then( () => res.status(201).json({ message: '  Actualisation Réussie pour : ' + req.params.id}))
         .catch( error => res.status(400).json({error}));
 }
