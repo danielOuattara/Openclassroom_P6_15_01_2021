@@ -1,8 +1,7 @@
 
-
 const  jsonwebtoken = require('jsonwebtoken');
 
-modules.exports  = (req, res, next) => {
+module.exports  = (req, res, next) => {
 
     try {
         const token = req.headers.authorization.spli(' ')[1];

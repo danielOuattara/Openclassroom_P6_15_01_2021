@@ -1,6 +1,0 @@
-branches created  
-
-main:
-  develop-serveur: 
-        develop-serveur_serveur  (work = server.js)
-        develop-serveur_app  (work = app.js)

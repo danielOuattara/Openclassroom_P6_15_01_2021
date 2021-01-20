@@ -17,7 +17,7 @@ exports.addSauce = (req, res, next) => {   // recupère les sauces
 exports.userLikeSauce = (req, res, next) => {   // écouter les requêtes formulaires
     const sauce = new Sauce({ ... req.body});
     sauce.save()
-        .then(() => res.status(201).json({ message: ' Message Enregisttré Réussie'}))
+        .then(() => res.status(201).json({ message: ' Message Enregistré Réussie'}))
         .catch( error => {
             console.log(error);
             res.status(400).json({error});
