@@ -35,11 +35,11 @@ exports.login = (req, res, next) => {
             }
             res.status(200).json( 
                 {
-                    userID: user._id,
+                    userId: user._id,
                     token:  jsonwebtoken.sign(
                         { userId: user._id },
                         'RANDOM_TOKEN_SECRET',
-                        { expiresIn: '24h' }
+                        { expiresIn: '1h' }
                     )
                 }
             )
