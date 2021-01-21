@@ -1,10 +1,10 @@
 const express     = require( 'express');  // importe 'express'
 const bodyParser  = require( 'body-parser');
-const app         = express(); //  cree une application express
 const mongoose    = require('mongoose');
 const path        = require('path');
-const sauceRoutes = require('./routes/saucesRoutes.js')
-const usersRoutes = require('./routes/usersRoutes.js')
+const sauceRoutes = require('./routes/sauceRoutes.js')
+const userRoutes = require('./routes/userRoutes.js')
+const app         = express(); //  cree une application express
 
 
 mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDuAUXJ9MvE@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
@@ -13,8 +13,8 @@ mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDu
     useUnifiedTopology: true 
   }
 )
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
 app.use((req, res, next) => {
@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', sauceRoutes )
-app.use('/api/auth', usersRoutes )
+app.use('/api/auth', userRoutes )
 
 module.exports = app;  //  rend 'app' accessible depuis les autres fichiers du projet
 

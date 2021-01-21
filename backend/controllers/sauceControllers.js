@@ -2,6 +2,7 @@ const Sauce   = require('../dataStructure/SauceModel.js');
 const fs = require('fs');
 
 
+
 exports.addSauce = (req, res, next) => {   // recupère les sauces
     const sauceObject = JSON.parse( req.body.sauce);
     delete sauceObject._id;
@@ -12,13 +13,14 @@ exports.addSauce = (req, res, next) => {   // recupère les sauces
       }
     );
     sauce.save()
-    .then(() => res.status(201).json({message: 'Objet Bien Enregistré !'}))
+    .then( () => res.status(201).json({message: 'Objet Bien Enregistré !'}))
     .catch( error => res.status(400).json({error}));
 } 
 
 
+
 exports.userLikeSauce = (req, res, next) => {   // écouter les requêtes formulaires
-    const sauce = new Sauce({ ... req.body});
+    const sauce = new Sauce({ ... req.body});   // route à terminer
     sauce.save()
     .then(() => res.status(201).json({ message: ' Message Enregistré Réussie'}))
     .catch( error => {
@@ -28,18 +30,20 @@ exports.userLikeSauce = (req, res, next) => {   // écouter les requêtes formul
 }
 
 
+
 exports.deleteOneSauce = (req, res, next) => { 
     Sauce.findOne({ _id: req.params.id })
     .then( sauce => {
-        const filename = sauce.imageUrl.split('/images/')[1];
+        const filename = sauce.imageUrl.split('/image/')[1];
         fs.unlink( `images/${filename}`, () => {
-            Sauce.deleteOne({_id: req.params.id})
-            .then( () => res.status(200).json( {message: 'Suppression Réussie !'}))
+            Sauce.deleteOne( { _id: req.params.id } )
+            .then( () => res.status(200).json( { message: 'Suppression Réussie !'}))
             .catch( error => res.status(400).json({error}));
             })
     })
     .catch( error => res.status(500).json({error}))
 }
+
 
 
 exports.updateSauce =  (req, res, next) => {   // actualise la sauce spécifique avec son ID 
@@ -52,10 +56,11 @@ exports.updateSauce =  (req, res, next) => {   // actualise la sauce spécifique
     {
       ...req.body // si pas d'update image dans cette update
     }
-    Sauce.updateOne( {_id: req.params.id}, {...sauceObject, _id:req.params.id})
-.then( () => res.status(201).json({ message: '  Actualisation Réussie pour : ' /*+ req.params.id*/}))
+    Sauce.updateOne( { _id: req.params.id }, { ...sauceObject, _id:req.params.id } )
+    .then( () => res.status(200).json({ message: '  Actualisation Réussie pour : ' /*+ req.params.id*/}))
     .catch( error => res.status(400).json({error}));
 }
+
 
 
 exports.getOneSauce = (req, res, next) => {   // renvoie la sauce spécifique avec son ID au client; 
@@ -63,6 +68,7 @@ exports.getOneSauce = (req, res, next) => {   // renvoie la sauce spécifique av
     .then( sauce => res.status(200).json(sauce))
     .catch( error => res.status(404).json({error}));
 }
+
 
 
 exports.getAllSauce = (req, res, next) => {   // renvoie tableau de toutes les sauces de la BD à l'utilisateur
