@@ -4,7 +4,7 @@ const  jsonwebtoken = require('jsonwebtoken');
 module.exports  = (req, res, next) => {
 
     try {
-        const token = req.headers.authorization.spli(' ')[1];
+        const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jsonwebtoken.verify(token, 'RANDOM_TOKEN_SECRET');
         const userID = decodedToken.userId;
 
