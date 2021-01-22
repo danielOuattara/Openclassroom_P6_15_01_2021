@@ -38,7 +38,7 @@ exports.userLikeSauce = (req, res, next) => {
           .catch((error) => res.status(400).json({ error: error }) );
   }
   
-  if (req.body.lik == -1) {
+  if (req.body.like == -1) {
           Sauce.updateOne(
               { _id: req.params.id }, 
               {
