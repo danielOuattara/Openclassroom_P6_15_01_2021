@@ -1,6 +1,11 @@
-const bcrypt = require('bcrypt');
+const bcrypt       = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
-const User = require('../dataStructure/UserModel.js');
+const User         = require('../dataStructure/UserModel.js');
+const validator    = require('email-validator');
+const { validate } = require('../dataStructure/UserModel.js');
+
+
+
 
 
 exports.singup = (req, res, next) => {  
@@ -57,6 +62,9 @@ exports.singup = (req, res, next) => {
 exports.login = (req, res, next) => {  
     // console.table(req.body);
     // console.log(req.body); 
+   
+
+
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {

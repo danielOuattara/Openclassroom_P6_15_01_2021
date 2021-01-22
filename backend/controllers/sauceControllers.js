@@ -1,27 +1,48 @@
 
-const Sauce   = require('../dataStructure/SauceModel.js');
-const auth    = require('../auth/auth.js');
-const fs      = require('fs');
+const Sauce = require('../dataStructure/SauceModel.js');
+const auth  = require('../auth/auth.js');
+const fs    = require('fs');
 
-// const mongoose = require('mongoose');
 
 
 exports.addSauce = (req, res, next) => { 
-    // console.log("req.body.Sauce = ", req.body.Sauce)
-    console.log("req.body.sauce = ", req.body.sauce)
-    console.log("JSON.parse(req.body.sauce) = ", JSON.parse(req.body.sauce))
-    const sauceObject = JSON.parse( req.body.sauce);
-    // delete sauceObject._id;
-    const sauce = new Sauce(
-      {
-        ...sauceObject,
-        imageUrl:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      }
-    );
-    sauce.save()
-    .then( ()     => res.status(201).json({message: 'Objet Bien Enregistré !'}))
-    .catch( error =>  { console.log(error) ; res.status(400).json( {error} ) });
+
+  console.log(req.body)
+
+    Sauce.findOne( // eviter répétitions d'articles
+        {
+          name: req.body.sauce.name, 
+          manufacturer: req.body.sauce.manufacturer,
+          mainPepper: req.body.sauce.mainPepper,
+          heat:req.body.sauce.heat
+       }
+    )
+
+    .then( sauceCheck => {
+        console.log(sauceCheck)
+        if(sauceCheck) {
+          return res.status(401).json( {error} | "Sauce Already Exists !");
+        }
+
+        const sauceObject = JSON.parse( req.body.sauce); 
+        const sauce = new Sauce(
+          {
+            ...sauceObject,
+            imageUrl:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+          }
+        );
+        sauce.save()
+        .then( ()     => res.status(201).json({message: 'Item Registered !'}))
+        .catch( error =>  { console.log(error) ; res.status(400).json( {error} ) });
+
+    })
+    .catch( error =>  res.status(500).json( {error}) )
+        
+
+
 } 
+
+
 
 
 exports.userLikeSauce = (req, res, next) => {
@@ -68,8 +89,11 @@ exports.deleteOneSauce = (req, res, next) => {
 }
 
 
+
+
+
 exports.updateSauce =  (req, res, next) => {  // actualise la sauce spécifique avec son ID  
-    const sauceObject = req.file ?
+    const sauceObject = req.file ? // il y a-t-il une fichier joint à la requête d'update ?
     {
       ...JSON.parse(req.body.sauce),  //si update d'image dans cet update
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
@@ -85,11 +109,17 @@ exports.updateSauce =  (req, res, next) => {  // actualise la sauce spécifique 
 }
 
 
+
+
+
 exports.getOneSauce = (req, res, next) => {  // renvoie la sauce spécifique avec son ID au client;   
     Sauce.findOne( { _id: req.params.id } )
     .then( sauce  => res.status(200).json(sauce))
     .catch( error =>  { cosole.log(error) ; res.status(404).json({error}) })
 }
+
+
+
 
 
 exports.getAllSauce = (req, res, next) => {   // renvoie tableau de toutes les sauces de la BD à l'utilisateur

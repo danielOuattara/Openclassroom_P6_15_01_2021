@@ -5,9 +5,12 @@ const path        = require('path');
 const sauceRoutes = require('./routes/sauceRoutes.js')
 const userRoutes  = require('./routes/userRoutes.js')
 const app         = express(); //  cree une application express
+const helmet      = require('helmet')
 
 
-mongoose.connect('mongodb+srv://danielOuattaraSepekocko:Zl8UkVDuAUXJ9MvEZl8UkVDuAUXJ9MvE@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
+app.use(helmet())
+
+mongoose.connect('mongodb+srv://se_pekocko_invited:Zgw2G2geUQ2rS1mCZgw2G2geUQ2rS1mC@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
   { 
     useNewUrlParser: true,
     useUnifiedTopology: true 
