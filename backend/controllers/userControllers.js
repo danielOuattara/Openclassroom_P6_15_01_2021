@@ -63,7 +63,10 @@ exports.login = (req, res, next) => {
     // console.table(req.body);
     // console.log(req.body); 
    
-
+    if (!validator.validate(req.body.email)) {
+        return res.status(401).json({error} | 'Connexion Forbiden')
+    }
+    
 
     User.findOne( {email: req.body.email})
     .then( user => {
