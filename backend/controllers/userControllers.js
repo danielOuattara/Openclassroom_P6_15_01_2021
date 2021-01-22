@@ -64,19 +64,19 @@ exports.login = (req, res, next) => {
     // console.log(req.body); 
    
     if (!validator.validate(req.body.email)) {
-        return res.status(401).json({error} | 'Connexion Forbiden')
+        return res.status(401).json({error} | 'Access Denied')
     }
     
 
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {
-            return res.status(401).json( {error: 'User Unknown !'})
+            return res.status(401).json( {error: 'Access Denied '})
         }
         bcrypt.compare( req.body.password, user.password)
         .then( valid => {
             if( !valid) {
-                return res.status(401).json( {error: ' Connexion Not Granted !'})
+                return res.status(401).json( {error: ' Access Denied '})
             }
             res.status(200).json( 
                 { 

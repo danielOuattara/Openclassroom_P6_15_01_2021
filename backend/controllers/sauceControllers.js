@@ -9,12 +9,12 @@ exports.addSauce = (req, res, next) => {
 
   console.log(req.body)
 
-    Sauce.findOne( // eviter répétitions d'articles
+    Sauce.findOne( // éviter répétitions d'articles
         {
-          name: req.body.sauce.name, 
+          name:         req.body.sauce.name, 
           manufacturer: req.body.sauce.manufacturer,
-          mainPepper: req.body.sauce.mainPepper,
-          heat:req.body.sauce.heat
+          mainPepper:   req.body.sauce.mainPepper,
+          heat:         req.body.sauce.heat
        }
     )
 
@@ -37,9 +37,6 @@ exports.addSauce = (req, res, next) => {
 
     })
     .catch( error =>  res.status(500).json( {error}) )
-        
-
-
 } 
 
 
@@ -47,6 +44,10 @@ exports.addSauce = (req, res, next) => {
 
 exports.userLikeSauce = (req, res, next) => {
   if(req.body.like == 1) {
+      
+     Sauce.findOne( { _id: req.param.id})
+
+
           Sauce.updateOne( 
               { _id: req.params.id }, 
               { 
@@ -93,6 +94,8 @@ exports.deleteOneSauce = (req, res, next) => {
 
 
 exports.updateSauce =  (req, res, next) => {  // actualise la sauce spécifique avec son ID  
+
+
     const sauceObject = req.file ? // il y a-t-il une fichier joint à la requête d'update ?
     {
       ...JSON.parse(req.body.sauce),  //si update d'image dans cet update
