@@ -2,21 +2,21 @@ const bcrypt       = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const User         = require('../dataStructure/UserModel.js');
 const validator    = require('email-validator');
-const { validate } = require('../dataStructure/UserModel.js');
-
-
-
 
 
 exports.singup = (req, res, next) => {  
+
+    if (!validator.validate(req.body.email)) {
+        return res.status(401).json({error} )              // 'Email Not Valid'
+    }
 
     User.findOne( {email: req.body.email} )
     .then( userCheck => {
 
         if(userCheck) {
-            return res.status(401). json( {error: 'This email address is already used !'}) 
+            return res.status(401).json( {error: 'This email address is already used !'}) 
         }
-
+       
         bcrypt.hash( req.body.password, 10)
         .then( hash => {
             const user = new User( 
