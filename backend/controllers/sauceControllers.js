@@ -134,31 +134,40 @@ exports.userLikeSauce = (req, res, next) => {
 
   // if ... if.. if  => swtich ...case ?
 
-    if(req.body.like == 1) {  // ----> Annule mon vôte j'aime   OR  vote j'aime
-                Sauce.updateOne(
-                  {_id: req.params.id},
-                  {
-                    $inc:  { likes: +1 },
-                    $push: { usersLiked: req.body.userId},
-                    _id: req.params.id
-                  }
-                )
-                .then( ()    => res.status(201).json( { message: 'Merci d\'avoir vôté'}))
-                .catch(error => res.status(400).json( {error } ))
-    }
+  switch(req.body.like)  {
 
-    if(req.body.like == -1) {  // ----> Annule mon vôte j'aime   OR  vote j'aime
-                Sauce.updateOne(
-                  {_id: req.params.id},
-                  {
-                    $inc:  { dislikes: +1 },
-                    $push: { usersDisliked: req.body.userId},
-                    _id: req.params.id
-                  }
-                )
-                .then( ()    => res.status(201).json( { message: 'Merci d\'avoir vôté'}))
-                .catch(error => res.status(400).json( {error } ))
-    }
+     case 1:
+
+          Sauce.updateOne(
+            {_id: req.params.id},
+            {
+              $inc:  { likes: +1 },
+              $push: { usersLiked: req.body.userId},
+              _id: req.params.id
+            }
+          )
+          .then( ()    => res.status(201).json( { message: 'Merci d\'avoir vôté'}))
+          .catch(error => res.status(400).json( {error } ))
+          break;
+
+    case -1 :
+
+      Sauce.updateOne(
+        {_id: req.params.id},
+        {
+          $inc:  { dislikes: +1 },
+          $push: { usersDisliked: req.body.userId},
+          _id: req.params.id
+        }
+      )
+      .then( ()    => res.status(201).json( { message: 'Merci d\'avoir vôté'}))
+      .catch(error => res.status(400).json( {error } ))
+
+
+
+
+   }
+    
 
     if(req.body.like == 0) {  // ----> Annule mon vôte je n'aime pas  OR  vote je n'aime pas
         Sauce.findOne( 
