@@ -10,7 +10,7 @@ const { validate } = require('../dataStructure/UserModel.js');
 
 exports.singup = (req, res, next) => {  
 
-    User.findOne( {email: req.body.email})
+    User.findOne( {email: req.body.email} )
     .then( userCheck => {
 
         if(userCheck) {
@@ -67,7 +67,6 @@ exports.login = (req, res, next) => {
         return res.status(401).json({error} )              // 'Email Not Valid'
     }
     
-
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {
@@ -85,7 +84,7 @@ exports.login = (req, res, next) => {
                 }
             )
         })
-        .catch( error => res.status(500).json( {error}))
+        .catch( error => res.status(500).json( {error} ))
     })
-    .catch( error => res.status(500).json( {error}))
+    .catch( error => res.status(500).json( {error} ))
 }
