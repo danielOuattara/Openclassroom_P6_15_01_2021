@@ -17,7 +17,7 @@ exports.singup = (req, res, next) => {
             return res.status(401).json( {error: 'This email address is already used !'}) 
         }
 
-        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!?&#@$%µ€_])[a-zA-Z0-9!?&#@$%µ€]{7,}/.test(req.body.password)) {   // Test password strength
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!?&#@$%µ€_])[a-zA-Z0-9!?&#@$%µ€_]{7,}/.test(req.body.password)) {   // Test password strength
             return res.status(401).json({ error: 'Password is a minimum of 7 characters, at least: of 1 lower case letter, 1 uppercase letter, 1 digit, 1 specila between _ ! ? & # @ $ % µ € ' });
           } 
        
@@ -45,7 +45,7 @@ exports.login = (req, res, next) => {
     if (!validator.validate(req.body.email)) {
         return res.status(401).json({error} )              // 'Email Not Valid'
     }
-    
+
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {
