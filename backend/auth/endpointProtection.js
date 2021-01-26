@@ -1,3 +1,4 @@
+
 //Create 2 limiters. 
 //The first counts number of consecutive failed attempts and allows maximum 10 
 //by username and IP pair. The second blocks IP for a day on 100 failed attempts per day.
@@ -32,7 +33,8 @@ const limiterConsecutiveFailsByUsernameAndIP = new RateLimiterRedis({
 
 const getUsernameIPkey = (username, ip) => `${username}_${ip}`;
 
- moudule.exports = (req, res, next) => {
+
+async function endpointProtection (req, res, next) {
   const ipAddr = req.ip;
   const usernameIPkey = getUsernameIPkey(req.body.email, ipAddr);
 
@@ -97,3 +99,5 @@ const getUsernameIPkey = (username, ip) => `${username}_${ip}`;
 //     res.status(500).end();
 //   }
 // });
+
+module.exports = endpointProtection;
