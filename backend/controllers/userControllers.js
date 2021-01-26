@@ -17,7 +17,7 @@ exports.singup = (req, res, next) => {
             return res.status(401).json( {error: 'This email address is already used !'}) 
         }
        
-        bcrypt.hash( req.body.password, 10)
+        bcrypt.hash( req.body.password, 13)
         .then( hash => {
             const user = new User( 
                 {
