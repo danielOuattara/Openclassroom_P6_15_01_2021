@@ -15,6 +15,6 @@ module.exports  = (req, res, next) => {
         }
 
     } catch (error) {
-        res.status(401).json( {error: error | 'Request Non Authorized !'})
+        res.status(401).json( {error})
     }
 }
