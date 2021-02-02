@@ -10,15 +10,17 @@ const userRoutes  = require('./routes/userRoutes.js')
 const app         = express(); //  cree une application express
 const helmet      = require('helmet')
 const cors        = require('cors');
+const limiter     = require('express-rate-limit');
 
 
 app.use(helmet())
+app.use(cors());
+
 
 const DATABASE = process.env.DATABASE;
 const PSW = process.env.PSW;
 const ADDRESS = process.env.ADDRESS
 
-// mongoose.connect('mongodb+srv://se_pekocko_invited:Zgw2G2geUQ2rS1mCZgw2G2geUQ2rS1mC@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
 
 mongoose.connect(`mongodb+srv://${DATABASE}:${PSW}@${ADDRESS}`,
   { 
@@ -39,8 +41,15 @@ app.use((req, res, next) => {
 
 
 app.use(bodyParser.json());
-app.use(cors());
 
+app.use(limiter ({
+  windowMs: 5000,
+  max: 5, 
+  message: {
+    code: 429,
+    message: 'Too many connection; Try later !'
+  }
+}))
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', sauceRoutes )
