@@ -45,8 +45,6 @@ const errorHandler = error => {
     }
 };
 
-// app.set('port', 3005 || process.env.PORT); // replaced by above
-
 const server = http.createServer(app);
 
 server.on('error', errorHandler);

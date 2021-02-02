@@ -182,50 +182,6 @@ exports.updateSauce =  (req, res, next) => {
 
   }
 
-
-            // const imageName = sauce.imageUrl.substring(imageUrl.lastIndexOf('/') + 1)
-            // console.log(imageName);
-            // fs.unlink(`$images/${imageName}`, function (err) {
-            //   if (err) throw err;
-            //   console.log('File deleted!')
-            // })
-
-
-
-
-      //   sauceObject =  {
-      //     ...JSON.parse(req.body.sauce),  //si update d'image dans cet update
-      //     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
-      // }
-
-      // } else {
-
-      //   sauceObject = {...req.body};
-      // }
-
-
-
-
-
-    // const sauceObject = req.file ? // il y a-t-il une fichier joint à la requête d'update ?
-    // {
-    //   ...JSON.parse(req.body.sauce),  //si update d'image dans cet update
-    //   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
-    // }
-    // :  // si non
-    // {
-    //   ...req.body // 
-     
-
-
-  
-    // Sauce.updateOne( { _id: req.params.id }, { ...sauceObject, _id:req.params.id } )
-    // .then( ()     => res.status(200).json({ message: 'Update successfully for item : ' + req.params.id}))
-    // .catch( error =>  res.status(400).json({error}))
-
-
-
-
 //-----------------------------------------------------------------------------------------------------------
 
 exports.getOneSauce = (req, res, next) => {  // renvoie la sauce spécifique avec son ID au client;   
@@ -237,7 +193,9 @@ exports.getOneSauce = (req, res, next) => {  // renvoie la sauce spécifique ave
 //-----------------------------------------------------------------------------------------------------------
 
 exports.getAllSauce = (req, res, next) => {   // renvoie tableau de toutes les sauces de la BD à l'utilisateur
-    Sauce.find()
-    .then( sauces => res.status(200).json(sauces))
-    .catch( error => res.status(400).json( {error} ));
+Sauce.find()
+.then( sauces => res.status(200).json(sauces))
+.catch( error => res.status(400).json( {error} ));
 }
+
+//-----------------------------------------------------------------------------------------------------------

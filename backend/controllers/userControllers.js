@@ -36,13 +36,13 @@ exports.singup = (req, res, next) => {
 exports.login = (req, res, next) => {  
    
     if (!validator.validate(req.body.email)) {
-        return res.status(401).json({error:" Email invalid !" } )              // 'Email Not Valid'
+        return res.status(401).json({error:" Email invalid !" } )      
     }
-
+    
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {
-            return res.status(401).json( {error: " Email or Password unknown !" } )         // 'Email Unknown '
+            return res.status(401).json( {error: " Email or Password unknown !" } )  
         }
         bcrypt.compare( req.body.password, user.password)
         .then( valid => {
@@ -61,3 +61,6 @@ exports.login = (req, res, next) => {
     })
     .catch( error => res.status(500).json( {error} ))
 }
+            
+
+// -----------------------------------------------------------------------------------------

@@ -1,3 +1,6 @@
+
+require('dotenv').config();
+
 const express     = require( 'express');  // importe 'express'
 const bodyParser  = require( 'body-parser');
 const mongoose    = require('mongoose');
@@ -6,21 +9,18 @@ const sauceRoutes = require('./routes/sauceRoutes.js')
 const userRoutes  = require('./routes/userRoutes.js')
 const app         = express(); //  cree une application express
 const helmet      = require('helmet')
-
 const cors        = require('cors');
 
 
 app.use(helmet())
 
-
-const ID = process.env.ID;
-const MDP = process.env.PASS;
+const DATABASE = process.env.DATABASE;
+const PSW = process.env.PSW;
 const ADDRESS = process.env.ADDRESS
 
-//mongoose.connect('mongodb+srv://se_pekocko_invited:Zgw2G2geUQ2rS1mCZgw2G2geUQ2rS1mC@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
+// mongoose.connect('mongodb+srv://se_pekocko_invited:Zgw2G2geUQ2rS1mCZgw2G2geUQ2rS1mC@cluster0.vndw3.mongodb.net/se_pekocko?retryWrites=true&w=majority',
 
-
-mongoose.connect(`mongodb+srv://${ID}:${MDP}@${ADDRESS}`,
+mongoose.connect(`mongodb+srv://${DATABASE}:${PSW}@${ADDRESS}`,
   { 
     useNewUrlParser: true,
     useUnifiedTopology: true 
