@@ -7,17 +7,17 @@ const TOKEN        = process.env.TOKEN;
 
 //---------------------------------------------------------------------------------------
 
-exports.singup = (req, res, next) => {  
+exports.singup = (req, res, next) => {
 
     // 'Password not strong ?'
-    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!?&#@$%µ€_])[a-zA-Z0-9!?&#@$%µ€_]{7,}/.test(req.body.password)) {   
-        return res.status(401).json({ error: `Password not Strong! :  7 characters at least 1 Uppercase, 
-                                              1 Lowercase, 1 Digit, 1 symbol between: ! ? & # @ $ % µ € _ `});       
-    } 
-           
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!?&#@$%µ€_])[a-zA-Z0-9!?&#@$%µ€_]{7,}/.test(req.body.password)) {
+        return res.status(401).json({ error: `Password not Strong! :  7 characters at least 1 Uppercase,
+                                              1 Lowercase, 1 Digit, 1 symbol between: ! ? & # @ $ % µ € _ `});
+    }
+
     bcrypt.hash( req.body.password, 13)
     .then( hash => {
-        const user = new User( 
+        const user = new User(
             {
                 email: req.body.email,
                 password: hash
@@ -33,27 +33,31 @@ exports.singup = (req, res, next) => {
 
 // -----------------------------------------------------------------------------------------
 
-exports.login = (req, res, next) => {  
-   
+exports.login = (req, res, next) => {
+
     if (!validator.validate(req.body.email)) {
-        return res.status(401).json({error:" Email invalid !" } )      
+        return res.status(401).json({error:" Email invalid !" } )
     }
-    
+
     User.findOne( {email: req.body.email})
     .then( user => {
         if(!user) {
-            return res.status(401).json( {error: " Email or Password unknown !" } )  
+            return res.status(401).json( {error: " Email or Password unknown !" } )
         }
+
         bcrypt.compare( req.body.password, user.password)
         .then( valid => {
             if(valid) {
-                res.status(200).json( 
-                    { 
+                res.status(200).json(
+                    {
                        userId: user._id,
-                       token: jsonwebtoken.sign( { userId: user._id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '1h' } )
+                       token: jsonwebtoken.sign(
+                         { userId: user._id },
+                         'RANDOM_TOKEN_SECRET',
+                         { expiresIn: '1h' } )
                     }
                 )
-            } else {          
+            } else {
                 return res.status(401).json( {error: ' Email or Password unknown !'} )    // Password Not Recognized
             }
         })
@@ -61,6 +65,6 @@ exports.login = (req, res, next) => {
     })
     .catch( error => res.status(500).json( {error} ))
 }
-            
+
 
 // -----------------------------------------------------------------------------------------

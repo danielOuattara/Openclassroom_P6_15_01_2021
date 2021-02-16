@@ -12,5 +12,4 @@ router.put('/:id',       auth, multer, saucesController.updateSauce);
 router.get('/:id',       auth,         saucesController.getOneSauce);
 router.get('/',          auth,         saucesController.getAllSauce );
 
-
 module.exports = router;

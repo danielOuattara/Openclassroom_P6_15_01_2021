@@ -23,9 +23,9 @@ const ADDRESS = process.env.ADDRESS
 
 
 mongoose.connect(`mongodb+srv://${DATABASE}:${PSW}@${ADDRESS}`,
-  { 
+  {
     useNewUrlParser: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true
   }
 )
 .then(()  => console.log('Connection to MongoDB:  Success !'))
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 app.use(limiter ({
   windowMs: 5000,
-  max: 5, 
+  max: 200,
   message: {
     code: 429,
     message: 'Too many connection; Try later !'
@@ -53,7 +53,6 @@ app.use(limiter ({
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', sauceRoutes )
-app.use('/api/auth', userRoutes )
+app.use('/api/auth'  , userRoutes )
 
 module.exports = app;  //  rend 'app' accessible depuis les autres fichiers du projet
-
