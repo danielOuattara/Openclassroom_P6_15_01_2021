@@ -4,7 +4,8 @@
   "description": "Contient le serveur projet_6 OC Se pekocko",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,6 @@
   "homepage": "https://github.com/danielOuattara/Openclassroom_P6_15_01_2021#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
@@ -31,5 +31,8 @@
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
     "ratelimiter": "^3.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

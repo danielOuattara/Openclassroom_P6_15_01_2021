@@ -6,9 +6,18 @@ const validator       = require('email-validator');
 
 const  userModel = mongoose.Schema(
  {
-   //  userID:   {type: String, required: true, unique: true},
-    email:    { type: String, required: true, unique: true, validate: [ validator.validate, 'Invalid email' ] },
-    password: { type: String, required: true } 
+   //  userID: {type: String, required: true, unique: true},
+    email: { 
+      type: String, 
+      required: true, 
+      unique: true, 
+      validate: [ validator.validate, 'Invalid email' ] 
+    },
+
+    password: { 
+      type: String, 
+      required: true 
+    } 
  });
 
  userModel.plugin(uniqueValidator)

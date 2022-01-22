@@ -50,8 +50,8 @@ export class SingleSauceComponent implements OnInit {
       return 0;
     }
     this.likePending = true;
-    this.sauces.likeSauce(this.sauce._id, !this.liked).then(
-      (liked: boolean) => {
+    this.sauces.likeSauce(this.sauce._id, !this.liked)
+    .then( (liked: boolean) => {
         this.likePending = false;
         this.liked = liked;
         if (liked) {
@@ -68,8 +68,8 @@ export class SingleSauceComponent implements OnInit {
       return 0;
     }
     this.likePending = true;
-    this.sauces.dislikeSauce(this.sauce._id, !this.disliked).then(
-      (disliked: boolean) => {
+    this.sauces.dislikeSauce(this.sauce._id, !this.disliked)
+    .then( (disliked: boolean) => {
         this.likePending = false;
         this.disliked = disliked;
         if (disliked) {
@@ -91,14 +91,13 @@ export class SingleSauceComponent implements OnInit {
 
   onDelete() {
     this.loading = true;
-    this.sauces.deleteSauce(this.sauce._id).then(
-      (response: { message: string }) => {
+    this.sauces.deleteSauce(this.sauce._id)
+    .then( (response: { message: string }) => {
         console.log(response.message);
         this.loading = false;
         this.router.navigate(['/sauces']);
       }
-    ).catch(
-      (error) => {
+    ).catch( (error) => {
         this.loading = false;
         this.errorMessage = error.message;
         console.error(error);
